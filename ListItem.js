@@ -75,7 +75,7 @@ class ListItem extends Component {
 
                         <View style={line}></View>
 
-                        <Text>{name}</Text>
+                        <Text style={styles.name}>{name}</Text>
 
                         {issues.length > 0 &&
                             <View style={styles.badge}>
@@ -106,6 +106,11 @@ export default ListItem
 
 
 const styles = StyleSheet.create({
+
+    name: {
+        fontFamily: 'proxima-nova',
+        fontSize: 16
+    },
 
     item: {
         flex: 1,

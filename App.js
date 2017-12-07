@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { AppRegistry, Alert, ToolbarAndroid, FlatList, SectionList, StyleSheet, Text, View, ToastAndroid } from 'react-native';
 
+import { Font } from 'expo';
+
+
 import ListItem from './ListItem'
+import { style } from 'expo/src/Font';
 
 class App extends Component {
 
@@ -11,12 +15,20 @@ class App extends Component {
 
         this.state = {
             data: [],
-            isLoading: false
+            isLoading: false,
+            fontLoaded: false
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         this.getStatus()
+
+        await Font.loadAsync({
+            'proxima-nova': require('./assets/fonts/proximaNova.ttf'),
+        });
+
+        this.setState({ fontLoaded: true });
+
     }
 
     getStatus = () => {
@@ -55,7 +67,7 @@ class App extends Component {
 
     render() {
 
-        const { data, isLoading } = this.state
+        const { data, isLoading, fontLoaded } = this.state
 
         return (
             <View style={styles.container}>
@@ -66,7 +78,7 @@ class App extends Component {
 
                 />*/}
 
-                <FlatList
+                {fontLoaded && <FlatList
                     data={data}
                     renderItem={({ item, i }) => <ListItem {...item} />}
                     keyExtractor={(item, index) => index}
@@ -74,6 +86,7 @@ class App extends Component {
                     refreshing={isLoading}
                     ItemSeparatorComponent={this.renderSeparator}
                 />
+                }
                 {/*<SectionList
                     sections={[
                         { title: 'D', data: ['Devin'] },
@@ -92,6 +105,11 @@ export default App
 
 
 const styles = StyleSheet.create({
+    
+    heading: {
+        fontFamily: 'proxima-nova'
+    },
+    
     toolbar: {
         backgroundColor: '#0019a8',
         height: 56,
@@ -100,29 +118,5 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 22
     },
-    sectionHeader: {
-        paddingTop: 2,
-        paddingLeft: 20,
-        paddingRight: 10,
-        paddingBottom: 2,
-        fontSize: 14,
-        fontWeight: 'bold',
-        backgroundColor: '#0019a8'
-    },
-    item: {
-        padding: 12,
-        paddingLeft: 20,
-        fontSize: 18,
-        height: 44,
-    },
-    circle: {
-        position: 'absolute',
-        top: 10,
-        right: 10,
-        borderRadius: 5,
-        width: 10,
-        height: 10,
-        backgroundColor: 'red'
-
-    }
+    
 })
