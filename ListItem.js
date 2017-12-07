@@ -4,25 +4,6 @@ import { Text, View, StyleSheet, TouchableHighlight } from 'react-native';
 import Issue from './Issue'
 import Fade from './Fade'
 
-
-
-const branding = {
-    bakerloo: '#894e24',
-    central: '#dc241f',
-    circle: '#ffce00',
-    district: '#007229',
-    hammersmithcity:'#d799af',
-    dlr:'#00b1a8',
-    jubilee:'#667070',
-    metropolitan:'#82034f',
-    northern:'#000000',
-    tflrail:'red',
-    waterloocity:'red',
-    londonoverground:'red',
-    victoria:'red',
-    piccadilly:'red'
-}
-
 class ListItem extends Component {
 
     constructor(props) {
@@ -49,54 +30,34 @@ class ListItem extends Component {
 
     render() {
 
-        const { id, name, lineStatuses } = this.props
+        const { name, lineStatuses } = this.props
         const { issueIsVisible } = this.state
 
         const issues = this._getIssues(lineStatuses)
 
-        // const bg = {
-        //     backgroundColor: issues.length > 0 ? '#ffecf4' : '#fff'
-        // }
-
-        const line = {
-            height: 12,
-            width: 12,
-            backgroundColor: branding[id.replace('-', '')],
-            marginLeft: 20,
-            marginRight: 12,
-            // borderRadius: 5
-
-        }
-
         return (
-            <TouchableHighlight onPress={this._toggleIssues} underlayColor="white">
-                <View>
-                    <View style={styles.item}>
+            <View>
+                <Text style={styles.item}>{name}</Text>
 
-                        <View style={line}></View>
+                {issues.length > 0 &&
+                    <TouchableHighlight onPress={this._toggleIssues} underlayColor="white">
+                        <View><Text>TOGGLE</Text></View>
+                    </TouchableHighlight>
+                }
 
-                        <Text>{name}</Text>
-
-                        {issues.length > 0 &&
-                            <View style={styles.badge}>
-                                <Text style={styles.badgeText}>{issues.length}</Text>
-                            </View>
-                        }
-
-
-
-
+                {issues.length > 0 &&
+                    <View style={styles.badge}>
+                        <Text style={styles.badgeText}>{issues.length}</Text>
                     </View>
+                }
 
-                    {issues.length > 0 && issueIsVisible &&
-                        
-                            <View style={styles.issues}>
-                                {issues.map((issue, index) => <Issue key={index} {...issue} />)}
-                            </View>
-                        
-                    }
-                </View>
-            </TouchableHighlight>
+
+                {issues.length > 0 &&
+                    <Fade visible={issueIsVisible}>
+                        {issues.map((issue, index) => <Issue key={index} {...issue} />)}
+                    </Fade>
+                }
+            </View>
 
         );
     }
@@ -108,38 +69,28 @@ export default ListItem
 const styles = StyleSheet.create({
 
     item: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        paddingTop: 15,
-        paddingBottom: 15,
+        padding: 12,
+        paddingLeft: 20,
+        fontSize: 18,
 
     },
-
     badge: {
         position: 'absolute',
         top: 12,
         right: 15,
-        borderRadius: 10,
-        padding: 2,
+        borderRadius: 20,
+        padding: 5,
         backgroundColor: 'red',
-        minWidth: 18,
+        minWidth: 25,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
+
     },
 
     badgeText: {
         color: '#fff',
-        fontSize: 10
-    },
+        fontSize: 10,
+    }
 
-    issues: {
-        flex: 1,
-        flexDirection: 'column',
-    },
-
-    
 
 })

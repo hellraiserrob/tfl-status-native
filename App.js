@@ -59,12 +59,12 @@ class App extends Component {
 
         return (
             <View style={styles.container}>
-                {/*<ToolbarAndroid
+                <ToolbarAndroid
                     title="Status"
                     titleColor="#fff"
                     style={styles.toolbar}
 
-                />*/}
+                />
 
                 <FlatList
                     data={data}

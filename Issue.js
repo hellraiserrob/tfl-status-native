@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 20,
         fontSize: 16,
+        fontWeight: 'bold',
         marginBottom: 5
     },
     reason: {
