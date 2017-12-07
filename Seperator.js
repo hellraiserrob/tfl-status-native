@@ -8,10 +8,10 @@ class Seperator extends Component {
         return (
             <View
                 style={{
-                    height: 1,
-                    width: "86%",
+                    height: 0,
+                    // width: "86%",
                     backgroundColor: "#CED0CE",
-                    marginLeft: "14%"
+                    marginLeft: 0
                 }}
             />
         );
